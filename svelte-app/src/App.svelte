@@ -58,7 +58,8 @@
 		
 	</svg>
 
-	<pre><code>                               | columns			                    | Details																	  |
+	<pre><code>
+| Column                                             | Description                                                                |
 |----------------------------------------------------|----------------------------------------------------------------------------|
 | CMS Certification Number (CCN)                     | ID                                                                         |
 | State                                              | State the provider is located in                                           |
