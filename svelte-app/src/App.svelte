@@ -2,6 +2,9 @@
 	import { onMount } from 'svelte';
   
 	let provider_info_html = '';
+	let fines_boxplot = '';
+	let infections_citations_boxplot = '';
+	let qm_state_graph = '';
   
 	const fetchDataFrame = async () => {
 		const response = await fetch('/provider_info.html');
@@ -12,7 +15,41 @@
 		}
 	};
 
-	onMount(fetchDataFrame);
+	const fetchBoxPlot = async () => {
+		const response = await fetch('/fines_boxplot.html');
+		if (response.ok) {
+		  fines_boxplot = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
+	const fetchBoxPlot2 = async () => {
+		const response = await fetch('/infections_citations.html');
+		if (response.ok) {
+		  infections_citations_boxplot = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
+	const fetchMap = async () => {
+		const response = await fetch('/qm_state_graph.html');
+		if (response.ok) {
+		  qm_state_graph = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
+
+	onMount(async() =>{
+		await fetchDataFrame();
+		await fetchBoxPlot();
+		await fetchBoxPlot2();
+		await fetchMap();
+	});
+
   </script>
 
 <main>
@@ -54,10 +91,41 @@
 			| Total Amount of Fines in Dollars                   | The total amount of fines incurred in dollars                              |
 			
 		</code></pre>
-		<p> Below is the head (first 5 rows) of the dataframe:</p>
+		<p> Below is the head (first 5 rows) of the dataframe. Scroll left and right to view the other columns of the dataset.</p>
 		<div class='dataframe'> 
 			{@html provider_info_html}
 		</div>
+	</div>
+
+	<div class='blue_box'>
+		<h2>Data Cleaning</h2>
+		Data is messy! Here's how I cleaned it:
+		<ul>
+			<li>To deal with missingness, I created a function called removeNA, which removed all NaN values in the columns
+				'Number of Citations from Infection Control Inspections', 'Health Inspection Rating', 
+                'Average Number of Residents per Day', 'Overall Rating', 'QM Rating', and 'Staffing Rating'
+			</li>
+			<li>
+				I imputed the missing data with the mean of the category for its respective state after dropping all NaNs. If a state <i>only</i> 
+				contained NaNs for a particular category, I imputed the missing data with the mean of the category across <i>all</i> states.
+			</li>
+			<li>
+				The 'Special Focus Status' column only indicated whether a provided belonged to a special focus facility program or was a 
+				candidate for one. Providers that are labelled 'SFF' are required to go to a special focus facility program because they have
+				serious quality issues and need improvements. However, if a provider was not under surveillance for special attention, it would
+				have an 'NaN' in the 'Special Focus Status' column. To make our data more readable, I replaced all the 'NaN' with 'Not Special Focus'.
+			</li>
+			<li>
+				The 'Abuse Icon' column consists of data labelled either 'Y' or 'N'. To make our data more expressive and useful for 
+				statistical analysis, I relabelled into binary values and converted every 'Y' to 1 and 'N' to 0. 
+			</li>
+		</ul>
+	</div>
+	<div class='blue_box'>
+		<h2>Exploratory Data Analysis (EDA)</h2>
+		<iframe src='/fines_boxplot.html' width="100%" height="500px" title = 'boxplot of fines'></iframe>
+		<iframe src='infections_citations.html' width='100%' height='500px' title='boxplot of infection citations'></iframe>
+		<iframe src='qm_state_graph.html' width='100%' height='500px' title='map of quality measure'></iframe>
 	</div>
 	
 </main>
