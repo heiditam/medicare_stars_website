@@ -5,6 +5,9 @@
 	let fines_boxplot = '';
 	let infections_citations_boxplot = '';
 	let qm_state_graph = '';
+	let qm_map_all = '';
+	let staffing_map = '';
+	let health_insection_map = '';
   
 	const fetchDataFrame = async () => {
 		const response = await fetch('/provider_info.html');
@@ -42,12 +45,42 @@
 		}
 	};
 
+	const fetchMap1 = async () => {
+		const response = await fetch('/qm_map_all.html');
+		if (response.ok) {
+		  qm_map_all = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
+	const fetchMap2 = async () => {
+		const response = await fetch('/staffing_rating_map.html');
+		if (response.ok) {
+		  staffing_map = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
+	const fetchMap3 = async () => {
+		const response = await fetch('/health_inspection_rating_map.html');
+		if (response.ok) {
+		  health_insection_map = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
 
 	onMount(async() =>{
 		await fetchDataFrame();
 		await fetchBoxPlot();
 		await fetchBoxPlot2();
 		await fetchMap();
+		await fetchMap1();
+		await fetchMap2();
+		await fetchMap3();
 	});
 
   </script>
@@ -123,9 +156,19 @@
 	</div>
 	<div class='blue_box'>
 		<h2>Exploratory Data Analysis (EDA)</h2>
-		<iframe src='/fines_boxplot.html' width="100%" height="500px" title = 'boxplot of fines'></iframe>
-		<iframe src='infections_citations.html' width='100%' height='500px' title='boxplot of infection citations'></iframe>
-		<iframe src='qm_state_graph.html' width='100%' height='500px' title='map of quality measure'></iframe>
+		<iframe src='/fines_boxplot.html' width="100%" height="500px" title = 'Boxplot of Total Amount of Fines in Dollars'></iframe>
+		<iframe src='infections_citations.html' width='100%' height='500px' title='Boxplot of Number of Citations From Infection Control Measures'></iframe>
+		<div style='display:flex; justify-content:space-between;'>
+			<iframe src='qm_state_graph.html' width='50%' height='500px' title='Map of Average QM Rating by State'></iframe>
+			<iframe src='staffing_rating_map.html' width='50%' height='500px' title='Map of Average Staffing Rating by State'></iframe>
+		</div>
+		<div style='display:flex; justify-content:flex-start;'>
+			<iframe src='health_inspection_rating.html' width='50%' height='500px' title='Map of Average Health Inspection Rating by State'></iframe>
+			<p class = 'caption'> 
+				<b> Analysis of Choropleth Maps</b>
+			</p>
+		</div>
+		<iframe src='qm_map_all.html' width='100%' height='500px' title='Map of Average QM Rating by Provider Site'></iframe>
 	</div>
 	
 </main>
@@ -176,6 +219,15 @@
 		background-color: white;
 		padding: 10px;
 		border: 1px solid #ccc;
+	}
+
+	.caption{
+		background-color: #708090;
+		max-width: 50%;
+		color: white;
+		text-align: left;
+		padding-left: 20px;
+		font-family: 'Lato', sans-serif;
 	}
 
 
