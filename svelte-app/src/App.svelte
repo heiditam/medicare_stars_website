@@ -8,6 +8,7 @@
 	let qm_map_all = '';
 	let staffing_map = '';
 	let health_insection_map = '';
+	let corr_table = '';
   
 	const fetchDataFrame = async () => {
 		const response = await fetch('/provider_info.html');
@@ -72,6 +73,15 @@
 		}
 	};
 
+	const fetchCorrTable = async () => {
+		const response = await fetch('/corr_table.html');
+		if (response.ok) {
+		  corr_table = await response.text(); 
+		} else {
+		  console.error("Failed to fetch provider_info.html");
+		}
+	};
+
 
 	onMount(async() =>{
 		await fetchDataFrame();
@@ -81,6 +91,7 @@
 		await fetchMap1();
 		await fetchMap2();
 		await fetchMap3();
+		await fetchCorrTable();
 	});
 
   </script>
@@ -125,7 +136,7 @@
 			
 		</code></pre>
 		<p> Below is the head (first 5 rows) of the dataframe. Scroll left and right to view the other columns of the dataset.</p>
-		<div class='dataframe'> 
+		<div class='df1'> 
 			{@html provider_info_html}
 		</div>
 	</div>
@@ -231,6 +242,26 @@
 		</div>
 		<iframe src='qm_map_all.html' width='100%' height='500px' title='Map of Average QM Rating by Provider Site'></iframe>
 	</div>
+	<div class='blue_box'>
+		<h2>Correlation Analysis</h2>
+		<div style='display:flex; justify-content:flex-start;'>
+			<div class = 'df2'>{@html corr_table}</div>
+			<p class = 'caption' style='max-width:50%;'>
+				<li>There is a <u>strong positive correlation</u> between overall rating and health inspection rating.
+				As health inspection ratings improve, overall ratings tend to rise as well. The strong relationship between
+				these two variables indicates meeting health standards is vital towards achieving an excellent overall rating.</li><br>
+				<li>There is a <u>moderately strong positive correlation</u> between overall rating with QM Rating and staffing
+				rating. While a relationship exists between these variables, other factors may also play a significant role
+				in affecting the overall rating.</li><br>
+				<li>There is a <u>weak to moderately strong positive correlation </u> between overall rating and the total amount
+				of fines in dollars. Since the health inspection ratings, staffing ratings, and QM ratings are directly factored
+				into the calculation of the overall rating, we are interested in analyzing how the total number of fines a provider 
+				has impacts its overall rating.</li>
+			</p>
+		</div>
+		
+		
+	</div>
 	
 </main>
 
@@ -273,13 +304,24 @@
 		font-family: 'Lato', sans-serif;
 	}
 
-	.dataframe{
+	.df1{
 		max-height: 500px;
 		overflow:auto;
 		margin-top: 20px;
 		background-color: white;
 		padding: 10px;
 		border: 1px solid #ccc;
+	}
+
+	.df2{
+		max-height: 500px;
+		overflow:auto;
+		margin-top: 20px;
+		background-color: white;
+		padding: 10px;
+		border: 1px solid #ccc;
+		display: inline-block;
+		width: auto;
 	}
 
 	.caption{
