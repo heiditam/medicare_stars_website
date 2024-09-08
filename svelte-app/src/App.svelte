@@ -156,16 +156,77 @@
 	</div>
 	<div class='blue_box'>
 		<h2>Exploratory Data Analysis (EDA)</h2>
-		<iframe src='/fines_boxplot.html' width="100%" height="500px" title = 'Boxplot of Total Amount of Fines in Dollars'></iframe>
-		<iframe src='infections_citations.html' width='100%' height='500px' title='Boxplot of Number of Citations From Infection Control Measures'></iframe>
+		<div style='display:flex; justify-content:flex-start;'>
+			<iframe src='/fines_boxplot.html' width="75%" height="500px" title = 'Boxplot of Total Amount of Fines in Dollars'></iframe>
+			<p class='caption' style='max-width: 25%;'>
+				<br> <br>
+				<li><b>Minimum: </b>$0</li>
+				<li><b>1st Quartile: </b>$0</li>
+				<li><b>Median: </b>$7,444.375</li>
+				<li><b>3rd Quartile: </b>$34,790</li>
+				<li><b>Maximum: </b>$1,235,806.05</li>
+				<li><b>Mean: </b>$38,144.142</li>
+				<br><br>
+				<li>Using the 1.5 IQR Rule, <b>12%</b> of the 'Total Amount of Fines in Dollars' data are outliers.</li>
+				<li>The graph is heavily <b>right-skewed.</b></li>
+				<li>Since the minimum and the 1st quartile are both $0, a substantial portion of the providers have few to none fines.</li>
+				<li>The median is much lower than the mean, which means that a few providers were fined exceptionally more than most.</li>
+				<li>The majority of the fines are relatively small, but a few outliers dominate the dataset. This could be due to a few providers
+					breaking the standards set for health providers.
+				</li>
+			</p>
+		</div>
+		<div style='display:flex; justify-content:flex-start;'>
+			<p class='caption' style='max-width: 25%;'>
+				<br> <br>
+				<li><b>Minimum: </b>0 citations</li>
+				<li><b>1st Quartile: </b>0 citations</li>
+				<li><b>Median: </b>0.727 citations</li>
+				<li><b>3rd Quartile: </b>1.122 citations</li>
+				<li><b>Maximum: </b>43 citations</li>
+				<li><b>Mean: </b>1.02 citations</li>
+				<br><br>
+				<li>Using the 1.5 IQR Rule, <b>about 8.34%</b> of the 'Number of Citations from Infection Control Inspections' data are outliers.</li>
+				<li>The graph is heavily <b>right-skewed.</b></li>
+				<li>Since the minimum and the 1st quartile are both $0, a substantial portion of the providers have few to none fines. Notice even
+					the median and the 3rd quartile of this column are close to only 1 citation. 
+				</li>
+				<li>The median is <b>significantly</b> lower than the mean, which means that a few providers were cited unusally more than most.</li>
+				<li>Most of the providers are doing very well and have virtually no citations. This means most providers obey health standards.
+				</li>
+			</p>
+			<iframe src='infections_citations.html' width='75%' height='500px' title='Boxplot of Number of Citations From Infection Control Measures'></iframe>
+		</div>
 		<div style='display:flex; justify-content:space-between;'>
 			<iframe src='qm_state_graph.html' width='50%' height='500px' title='Map of Average QM Rating by State'></iframe>
 			<iframe src='staffing_rating_map.html' width='50%' height='500px' title='Map of Average Staffing Rating by State'></iframe>
 		</div>
 		<div style='display:flex; justify-content:flex-start;'>
 			<iframe src='health_inspection_rating.html' width='50%' height='500px' title='Map of Average Health Inspection Rating by State'></iframe>
-			<p class = 'caption'> 
+			<p class = 'caption' style='max-width:50%;'> 
 				<b> Analysis of Choropleth Maps</b>
+				<br>
+				All ratings are based on a scale of 1-5, with 1 being the worst ranking and 5 being the best.
+				<br> <br> <b>Quality Measure Ratings </b>(National Average: 3.50/5) <br>
+				<li>Western states (eg California, Nevada, Idaho) and some states in the Northeast (eg Delaware, New Jersey) have a pretty
+					strong quality measure rating of 4.2 - 4.4.
+				</li>
+				<li>Several Midwestern states, such as Indiana and Ohio, have an above-average rating, with scores around 4.</li>
+				<li>Many <u>Southeastern</u> (eg Alabama, Georgia, North Carolina) and Midwestern (eg Illinois, Missouri) states are rated
+					 poor quality</li>
+				<li>Two states located in the <u>Southeastern</u>, Louisiana and Mississippi, have extremely poor quality.</li>
+
+				<br> <br> <b>Staffing Ratings </b>(National Average: 2.676/5) <br>
+				<li>Many states in the West (eg California, Nevada, Arizona), had subpar staffing quality, with a staffing quality rating
+					of 2.6-2.8. </li>
+				<li><u>Southern states</u>Texas and Louisiana have significantly below staffing quality. Texas has a staffing quality
+				rating average of 1.827/5 and Louisiana has a staffing quality average of 2.153/5.</li>
+				<li><u>Midwestern states</u> Missouri, Illinois, Indiana, and more also have indequate staffing quality, generally 
+				averaging 2/5 stars.</li>
+
+				<br><br> <b>Health Inspection Ratings</b> (National Average: 2.785/5)
+				<li>Most of the U.S. states are fairly close to average, but there is still room for improvement.</li>
+
 			</p>
 		</div>
 		<iframe src='qm_map_all.html' width='100%' height='500px' title='Map of Average QM Rating by Provider Site'></iframe>
@@ -223,10 +284,10 @@
 
 	.caption{
 		background-color: #708090;
-		max-width: 50%;
 		color: white;
 		text-align: left;
 		padding-left: 20px;
+		padding-right: 20px;
 		font-family: 'Lato', sans-serif;
 	}
 
