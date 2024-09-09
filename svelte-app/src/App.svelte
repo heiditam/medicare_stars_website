@@ -259,7 +259,11 @@
 				has impacts its overall rating.</li>
 			</p>
 		</div>
-		
+		<p class='tests'>
+			<b>Question of Interest:</b> Is there a significant difference in overall ratings between providers with varying amounts of fines? <br>
+			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub> = &mu;<sub>3</sub> = &mu;<sub>4</sub> = &mu;<sub>5</sub>, where 
+			&mu;<sub>i</sub> is the mean number of fines for each category rating.
+		</p>
 		
 	</div>
 	
@@ -327,6 +331,16 @@
 	.caption{
 		background-color: #708090;
 		color: white;
+		text-align: left;
+		padding-left: 20px;
+		padding-right: 20px;
+		font-family: 'Lato', sans-serif;
+	}
+
+	.tests{
+		background-color: #FFE8E3;
+		border: 1px solid #E39A86;
+		color: black;
 		text-align: left;
 		padding-left: 20px;
 		padding-right: 20px;
