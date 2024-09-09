@@ -97,11 +97,13 @@
   </script>
 
 <main>
+	<!--TITLE-->
 	<svg width='100%' height='250'>
 		<rect width="100%" height="100%" style="fill:lightblue; stroke:navy; stroke-width:4px;" />
 		<text x= 30% y = 75% fill = 'navy' font-family='Latos' font-size= 75px>Medicare Star Insights</text>
 		<text x= 37% y = 90% fill = 'darkblue' font-family='Latos' font-size= 20px font-style='italic'>A Healthcare Machine Learning Project by Heidi Tam</text>
 	</svg>
+	<!--DATA ANALYSIS-->
 	<h1>Data Analysis</h1>
 	<div class = 'blue_box'>
 		<h2>Introduction</h2>
@@ -115,6 +117,7 @@
 		and a pipeline model was built to forecast the overall star ratings for healthcare providers based on key factors. Finally, actionable insights were drawn to create opportunities
 		healthcare insurance companies to build strategic actions to optimally benefit their company and the customer.</p>
 	</div>
+	<!--METHODOLOGY-->
 	<div class = 'blue_box'>
 		<h2>Methodology</h2>
 		<p>The data (14834 rows, 103 columns), was collected from CMS and provides information on the data used in the 5 star rating system.</p>
@@ -140,7 +143,7 @@
 			{@html provider_info_html}
 		</div>
 	</div>
-
+	<!--DATA CLEANING-->
 	<div class='blue_box'>
 		<h2>Data Cleaning</h2>
 		Data is messy! Here's how I cleaned it:
@@ -165,6 +168,7 @@
 			</li>
 		</ul>
 	</div>
+	<!--EXPLORATORY DATA ANALYSIS-->
 	<div class='blue_box'>
 		<h2>Exploratory Data Analysis (EDA)</h2>
 		<div style='display:flex; justify-content:flex-start;'>
@@ -262,11 +266,26 @@
 		<p class='tests'>
 			<b>Question of Interest:</b> Is there a significant difference in overall ratings between providers with varying amounts of fines? <br>
 			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub> = &mu;<sub>3</sub> = &mu;<sub>4</sub> = &mu;<sub>5</sub>, where 
-			&mu;<sub>i</sub> is the mean number of fines for each category rating.
+			&mu;<sub>i</sub> is the mean number of fines for each category rating. The mean number of fines is the same for each rating.<br>
+			<b>H<sub>1</sub>:</b> Some &mu;<sub>i</sub> are different. There is a difference in the mean number of fines for at least
+			one of the rating categories. <br>
+			We will to assess the significance of the relationship between more than three categories so we will conduct an <b>ANOVA test</b>.<br>
+			After conducting an ANOVA test of 10,000 permutations, we achieved an F-stat of approximately 243.55. 
+			The permuted F-values range from 0.002 to 6.774, which is <i>very </i> far off from the observed F-stat.
+			Unsurprisingly, our p-value is about 0. <br>
+			Because p = 0 &lt; 0.05, we reject the null hypothesis, so the <b>mean total fines is significantly different</b>
+			 for each category. A strong correlation exists, but we do not have enough evidence to suggest there is a casual relationship
+			  in our data. This conclusion makes sense because we would expect providers with a <i>lower</i> overall quality rating to 
+			  have accumulated more fines, since they are more likely to violate health standards and not meet the satisfaction of 
+			  beneficiaries (customers).
 		</p>
-		
+		<img src='fstat.png' alt='Permutation F-Value Distribution' style='display:block; margin:auto;'  >
 	</div>
-	
+	<!-- MACHINE LEARNING -->
+	<h1>MACHINE LEARNING</h1>
+	<div class='green_box'>
+		<h2>Pipeline Model</h2>
+	</div>
 </main>
 
 <style>
@@ -284,8 +303,7 @@
 		font-family: 'Lato', sans-serif;
 		font-size: 2em;
 		font-weight: bold;
-		text-align: left;
-		padding-left: 45%;
+		text-align: center;
 		-webkit-text-stroke: 1px black;
 	}
 
@@ -293,19 +311,32 @@
 		width: 100%;
 		box-sizing: border-box;
 		background-color: lightcyan;
-		border: 4px solid navy;
-		border-bottom: 2px;
+		border-bottom: 2px solid navy;
+		border-top: 2px solid navy;
 		font-family: 'Lato', sans-serif;
 		font-size: 1em;
 		padding: 20px 50px 10px 50px;
 		text-align: left;
 	}
 
-	.blue_box h2{
+	h2{
 		color: darkblue;
 		font-size: 2em;
 		margin-bottom: 10px;
 		font-family: 'Lato', sans-serif;
+	}
+
+	.green_box{
+		width: 100%;
+		box-sizing: border-box;
+		background-color: #E8FFF5;
+		border: 4px solid navy;
+		border-bottom: 2px solid navy;
+		border-top: 2px solid navy;
+		font-family: 'Lato', sans-serif;
+		font-size: 1em;
+		padding: 20px 50px 10px 50px;
+		text-align: left;
 	}
 
 	.df1{
