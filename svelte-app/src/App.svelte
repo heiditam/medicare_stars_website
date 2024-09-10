@@ -284,7 +284,83 @@
 	<!-- MACHINE LEARNING -->
 	<h1>MACHINE LEARNING</h1>
 	<div class='green_box'>
-		<h2>Pipeline Model</h2>
+		<h2>Building a Pipeline Model</h2>
+		<h3>Framing the Problem</h3>
+		I built an <b>SVC (Support Vector Classification)</b> Model, which can efficiently use support vectors to focus on 
+		critical data points and features and ignore the less informative ones for classification. For example, if 'Special Focus
+		Status' is a key driver in determining the overall rating, the SVC Model will take this into account. This type of model also 
+		pays particular attention to small subsets of the data that may disproportionately affect the overall Medicare star rating.
+		This could be useful for targeting facilities with consistently low star ratings, fairly allocating resources amongst providers,
+		and adjusting and regulating policies as needed. SVC Models would also be able to capture intricate nonlinear patterns, which may be
+		useful because the relationship between the overall ratings and the features may not necessarily be linear. In other words, SVC
+		is highly beneficial for using support vectors to classify data with a variety of features: in this case, ratings, categorical
+		features, and other numerical features. <br><br>
+		<li><b>Response Variable: </b> overall rating (the overall star rating for providers)</li>
+			<ul>
+				<li>We will be observing how the selected features impact overall rating because we are interested in what factors
+					 could cause providers to have higher star ratings.
+				</li>
+			</ul>
+		<li><b>Evaluation Metrics: </b>precision, recall, F1-Score, accuracy</li>
+			<ul>
+				<li><u>Precision: </u>tells us the percentage of <i>positive predictions</i> that were correctly made (ie Of all the
+					predictions predicted to be positive, how many were actually positive?)</li>
+				<li><u>Recall: </u>tells us the percentage of<i>actual positive instances </i> that were correctly identified by
+				the model. (ie Of all the true positive instances, how many were correctly predicted?)</li>
+				<li><u>F1-Score: </u>the harmonic mean of precision and recall</li>
+				<li><u>Accuracy: </u>the proportion of correct predictions (positive + negative) out of all predictions</li>
+			</ul>
+		<pre><code>
+			# Separate features (X) and target (y)
+			# Drop CMS because it is an identifier
+			X = smaller_provider_info.drop(columns=['Overall Rating'])
+			y = smaller_provider_info['Overall Rating']
+			
+			# pipeline preprocessing 
+			categorical = ['State', 'Ownership Type', 'Provider Type', 'Special Focus Status', 'Abuse Icon']
+			quantitative = ['Number of Certified Beds', 'Average Number of Residents per Day', 'Health Inspection Rating', 'QM Rating',\
+							'Staffing Rating', 'Number of Citations from Infection Control Inspections',\
+							 'Total Amount of Fines in Dollars']
+			
+			preprocessor = ColumnTransformer(
+				transformers=[
+					('cat', OneHotEncoder(), categorical),
+					('num', StandardScaler(), quantitative)
+				]
+			)
+			
+			# We will use an SVC Model because it can handle complex data and can use special techniques to transform both linear\
+			 and nonlinear data. 
+			model = Pipeline(
+				steps = [
+					('preprocessor', preprocessor),
+					('classifier', SVC(max_iter=1000, random_state=42))
+				]
+			)
+			
+			# train = trains ML algorithm; test = used to evaluate the accuracy of the trained algorithm
+			# Save 20% of the data for testing
+			# Split the data into training + test sets
+			X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+			
+			# Train the model
+			model.fit(X_train, y_train)
+			
+			# Make predictions
+			y_pred = model.predict(X_test)
+			
+			print(classification_report(y_test, y_pred))
+		</code></pre>
+		<h3>Results of the Pipeline Model</h3>
+		<div style='display:flex; justify-content:flex-start;'>
+			<img src='metrics.png' alt='Metrics of Pipeline Model' width=500; height=auto;>
+			<p class='caption'>
+				<li><b>Precision:</b> Our precision scores range from 0.95-0.97. Out of all the positive predictions we made, 95% to 97% were true.</li> <br>
+				<li><b>Recall: </b> Our recall scores range from 0.93-0.99. This means out of all the positive instances, our model correctly predicted 93-99% of them.</li> <br>
+				<li><b>F1 Score: </b> This is the harmonic mean of precision and recall. Our F1 scores range from 0.95 to 0.98, which is pretty good! We want to be as close to 1 as possible without overfitting.</li> <br>
+				<li><b>Support: </b> A similar number of items appeared in each category, which is what we want.</li> <br>
+			</p>
+		</div>
 	</div>
 </main>
 
@@ -307,6 +383,20 @@
 		-webkit-text-stroke: 1px black;
 	}
 
+	h2{
+		color: darkblue;
+		font-size: 2em;
+		margin-bottom: 10px;
+		font-family: 'Lato', sans-serif;
+	}
+
+	h3{
+		color: #006400;
+		font-size: 1.5em;
+		margin-bottom: 10px;
+		font-family: 'Lato', sans-serif;
+	}
+
 	.blue_box{
 		width: 100%;
 		box-sizing: border-box;
@@ -317,13 +407,6 @@
 		font-size: 1em;
 		padding: 20px 50px 10px 50px;
 		text-align: left;
-	}
-
-	h2{
-		color: darkblue;
-		font-size: 2em;
-		margin-bottom: 10px;
-		font-family: 'Lato', sans-serif;
 	}
 
 	.green_box{
