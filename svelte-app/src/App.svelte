@@ -269,7 +269,7 @@
 			&mu;<sub>i</sub> is the mean number of fines for each category rating. The mean number of fines is the same for each rating.<br>
 			<b>H<sub>1</sub>:</b> Some &mu;<sub>i</sub> are different. There is a difference in the mean number of fines for at least
 			one of the rating categories. <br>
-			We will to assess the significance of the relationship between more than three categories so we will conduct an <b>ANOVA test</b>.<br>
+			We will assess the significance of the relationship between more than three categories so we will conduct an <b>ANOVA test</b>.<br>
 			After conducting an ANOVA test of 10,000 permutations, we achieved an F-stat of approximately 243.55. 
 			The permuted F-values range from 0.002 to 6.774, which is <i>very </i> far off from the observed F-stat.
 			Unsurprisingly, our p-value is about 0. <br>
@@ -339,6 +339,7 @@
 			)
 			
 			# train = trains ML algorithm; test = used to evaluate the accuracy of the trained algorithm
+
 			# Save 20% of the data for testing
 			# Split the data into training + test sets
 			X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
@@ -384,6 +385,32 @@
 		<p style='color:navy;'>This means about <b><u>97.72%</u></b> of predicted low-ranking instances had provider IDs that matched actual low-ranking providers.
 			This is a good indication our model is performing well.</p>
 		<h3>Cost Analysis</h3>
+		<li>The mean total amount of fines in dollars for low ranking providers (ranks 1-2) is <b>$69,789.79.</b></li>
+		<li>The mean total amount of fines in dollars for high ranking providers (ranks 3-5) is <b>$13,328.98.</b></li>
+		<p>
+			The mean number of fines PREDICTED for low ratings (1, 2) is over <b>5 times greater</b> than the mean number of fines PREDICTED for high ratings (3-5). <br>
+			The model suggests that <b>fines are an important indicator</b> in predicting overall star ratings in the dataset.<br>
+			We can quickly confirm that high ranking providers have significantly less fines than low ranking providers with a significance test.
+			Recall earlier we performed a permutation test to see if there was a significant difference between <i>all observed </i> rating categories.
+			In this test, we will analyze whether <b>providers predicted to have higher ratings</b> have significantly less fines than 
+			<b>providers predicted to have lower ratings</b>.
+		</p>
+		<p class='tests'>
+			<b>Question of Interest:</b> Is the mean number of fines significantly greater in healthcare providers with lower predicted rankings? <br><br>
+			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub>, where &mu;<sub>1</sub> is the mean number of fines for healthcare providers
+			with predicted low rankings (1-2) and &mu;<sub>2</sub> is the mean number of fines for healthcare providers predicted to have high
+			rankings (3-5).<br>
+			<b>H<sub>1</sub>:</b> &mu;<sub>1</sub> ≥ &mu;<sub>2</sub> &rarr; lower-ranking providers are expected to have more fines.<br>
+			We are comparing the means of two groups, so we will perform a two-sample t-test. <br><br>
+			<b>Assumptions:</b>
+			<li>The populations are independent of each other because low-ranking and high-ranking providers are mutually exclusive.</li>
+			<li>The Central Limit Theorem balance condition is met in each sample (at least 30 providers for low and high rankings each).</li>
+			<li>The data are independent in each sample (assume randomization, and not enough info to confirm sample is &lt;10% of population)</li><br>
+			
+			After conducting a two-sample t-test, we retrieve a t-stat of about 13.846 and a p-value of about 1.355 * 10^(-42).
+			Since our p-value is 1.35 * 10^(-42) &lt; 0.05, we <b>reject the null hypothesis</b>. The number of fines is significantly greater 
+			in healthcare providers with low predicted rankings.
+		</p>
 	</div>
 </main>
 
