@@ -362,6 +362,29 @@
 			</p>
 		</div>
 	</div>
+	<div class='green_box'>
+		<h2>Insight & Applications of the Pipeline Model</h2>
+		<pre><code>predictions = X.test[y_pred&lt;=2]</code></pre>
+		<p style='color:red;'>
+			There are <u><b>1361 rows (predictions)</b></u> that would have a low overall quality rating of 1 or 2. This is very close to the number of rows
+			we would expect to have since our test data is 20% of all the data (1361 rows in predicted results vs. <b>1319 expected rows</b>)
+		</p>
+		<pre><code>true_values = smaller_provider_info[smaller_provider_info['Overall Rating'] &lt;=2]</code></pre>
+		<pre><code>0.2 * smaller_provider_info.shape[0] * true_values.shape[0]/smaller_provider_info.shape[0]</code></pre>
+		<p style='color:navy;'>1319 expected rows</p>
+		<p style='color:red;'>
+			<b>1330 rows</b> in our predictions for low rankings have Medicare provider IDs (CMS Certification Number) that match Medicare provider IDs 
+			that actually have a low ranking of 1 or 2.
+		</p>
+		<pre><code>
+			len([cms for cms in set(predictions['CMS Certification Number (CCN)']) if cms in true_values['CMS Certification Number (CCN)'].values])
+		</code></pre>
+		<p style='color:navy;'> <u>1330 rows with matching IDs</u></p>
+		<pre><code>1330/1361 * 100</code></pre>
+		<p style='color:navy;'>This means about <b><u>97.72%</u></b> of predicted low-ranking instances had provider IDs that matched actual low-ranking providers.
+			This is a good indication our model is performing well.</p>
+		<h3>Cost Analysis</h3>
+	</div>
 </main>
 
 <style>
