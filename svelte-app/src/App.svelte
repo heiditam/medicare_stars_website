@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
+	import Scrollyteller from './Scrollyteller.svelte';
   
 	let provider_info_html = '';
 	let fines_boxplot = '';
@@ -97,6 +98,7 @@
   </script>
 
 <main>
+	<Scrollyteller />
 	<!--TITLE-->
 	<svg width='100%' height='250'>
 		<rect width="100%" height="100%" style="fill:lightblue; stroke:navy; stroke-width:4px;" />
