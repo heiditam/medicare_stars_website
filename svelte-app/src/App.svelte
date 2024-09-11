@@ -502,16 +502,24 @@
 			<li><b>Management of Chronic Conditions: </b>Health insurance companies could have programs that focus on supporting groups with
 				 chronic conditions, such as victims of heart and lung diseases. </li>
 			<li><b>Preventative Care: </b>A healthy customer is a happy customer, so insurance companies could monitor more frequent requirements
-				 for screening and tests. Catching diseases and infections early on is improtant before the condition deteriorates. Customers 
+				 for screening and tests. Catching diseases and infections early on is important before the condition deteriorates. Customers 
 				 may also watch simple modules online that explain how to prevent and treat non-fatal infections and illnesses. These modules
 				  could be shown to them via a personal portal, where the videos shown vary depending on age and relevant risk factors. </li>
 			
 		</ol>
 		<br>
-		<b>Note: </b> While a correlation exists between the following actions and higher ratings, this does not imply causation. However, implementing these steps may increase a health insurance company's likelihood of being perceived favorably.
+		<b>Note: </b> While a correlation exists between the following actions and higher ratings, this does not imply causation.
+		 However, implementing these steps may increase a health insurance company's likelihood of being perceived favorably.
+	</div>
+	<h1>Additional Links</h1>
+	<div class='pink_box'>
+		<div style='display:flex; justify-content:space-between; width:300px;'>
+			<a href='https://docs.google.com/document/d/1xPBsm6Xnv7x20dzEuUOr6x0PXMItEABKPlU18cWJqxA/edit' class='button'>Works Cited</a>
+			<a href='https://github.com/heiditam/medicare_stars_website' class='button'>GitHub</a>
+		</div>
 
 	</div>
-	
+
 </main>
 
 <style>
@@ -584,6 +592,20 @@
 		padding: 20px 50px 10px 50px;
 		text-align: left;
 	}
+	
+	.pink_box{
+		width: 100%;
+		box-sizing: border-box;
+		background-color: lightpink;
+		border: 4px solid navy;
+		border-bottom: 2px solid navy;
+		border-top: 2px solid navy;
+		font-family: 'Lato', sans-serif;
+		font-size: 1em;
+		justify-content: center;
+		align-items: center;
+		display: flex;
+	}
 
 	.df1{
 		max-height: 500px;
@@ -622,6 +644,16 @@
 		padding-left: 20px;
 		padding-right: 20px;
 		font-family: 'Lato', sans-serif;
+	}
+
+	.button{
+		background-color: navy;
+		border: 0.5px solid grey;
+		color: white;
+		text-align: center;
+		font-family: 'Lato', sans-serif;
+		padding: 10px;
+		margin: 20px 0px;
 	}
 
 
