@@ -173,7 +173,7 @@
 		<h2>Exploratory Data Analysis (EDA)</h2>
 		<div style='display:flex; justify-content:flex-start;'>
 			<iframe src='/fines_boxplot.html' width="75%" height="500px" title = 'Boxplot of Total Amount of Fines in Dollars'></iframe>
-			<p class='caption' style='max-width: 25%;'>
+			<ul class='caption' style='max-width: 25%;'>
 				<br> <br>
 				<li><b>Minimum: </b>$0</li>
 				<li><b>1st Quartile: </b>$0</li>
@@ -189,10 +189,10 @@
 				<li>The majority of the fines are relatively small, but a few outliers dominate the dataset. This could be due to a few providers
 					breaking the standards set for health providers.
 				</li>
-			</p>
+			</ul>
 		</div>
 		<div style='display:flex; justify-content:flex-start;'>
-			<p class='caption' style='max-width: 25%;'>
+			<ul class='caption' style='max-width: 25%;'>
 				<br> <br>
 				<li><b>Minimum: </b>0 citations</li>
 				<li><b>1st Quartile: </b>0 citations</li>
@@ -209,7 +209,7 @@
 				<li>The median is <b>significantly</b> lower than the mean, which means that a few providers were cited unusally more than most.</li>
 				<li>Most of the providers are doing very well and have virtually no citations. This means most providers obey health standards.
 				</li>
-			</p>
+			</ul>
 			<iframe src='infections_citations.html' width='75%' height='500px' title='Boxplot of Number of Citations From Infection Control Measures'></iframe>
 		</div>
 		<div style='display:flex; justify-content:space-between;'>
@@ -218,7 +218,7 @@
 		</div>
 		<div style='display:flex; justify-content:flex-start;'>
 			<iframe src='health_inspection_rating.html' width='50%' height='500px' title='Map of Average Health Inspection Rating by State'></iframe>
-			<p class = 'caption' style='max-width:50%;'> 
+			<ul class = 'caption' style='max-width:50%;'> 
 				<b> Analysis of Choropleth Maps</b>
 				<br>
 				All ratings are based on a scale of 1-5, with 1 being the worst ranking and 5 being the best.
@@ -242,7 +242,7 @@
 				<br><br> <b>Health Inspection Ratings</b> (National Average: 2.785/5)
 				<li>Most of the U.S. states are fairly close to average, but there is still room for improvement.</li>
 
-			</p>
+			</ul>
 		</div>
 		<iframe src='qm_map_all.html' width='100%' height='500px' title='Map of Average QM Rating by Provider Site'></iframe>
 	</div>
@@ -250,7 +250,7 @@
 		<h2>Correlation Analysis</h2>
 		<div style='display:flex; justify-content:flex-start;'>
 			<div class = 'df2'>{@html corr_table}</div>
-			<p class = 'caption' style='max-width:50%;'>
+			<ul class = 'caption' style='max-width:50%;'>
 				<li>There is a <u>strong positive correlation</u> between overall rating and health inspection rating.
 				As health inspection ratings improve, overall ratings tend to rise as well. The strong relationship between
 				these two variables indicates meeting health standards is vital towards achieving an excellent overall rating.</li><br>
@@ -261,7 +261,7 @@
 				of fines in dollars. Since the health inspection ratings, staffing ratings, and QM ratings are directly factored
 				into the calculation of the overall rating, we are interested in analyzing how the total number of fines a provider 
 				has impacts its overall rating.</li>
-			</p>
+			</ul>
 		</div>
 		<p class='tests'>
 			<b>Question of Interest:</b> Is there a significant difference in overall ratings between providers with varying amounts of fines? <br>
@@ -355,12 +355,12 @@
 		<h3>Results of the Pipeline Model</h3>
 		<div style='display:flex; justify-content:flex-start;'>
 			<img src='metrics.png' alt='Metrics of Pipeline Model' width=500; height=auto;>
-			<p class='caption'>
+			<ul class='caption'>
 				<li><b>Precision:</b> Our precision scores range from 0.95-0.97. Out of all the positive predictions we made, 95% to 97% were true.</li> <br>
 				<li><b>Recall: </b> Our recall scores range from 0.93-0.99. This means out of all the positive instances, our model correctly predicted 93-99% of them.</li> <br>
 				<li><b>F1 Score: </b> This is the harmonic mean of precision and recall. Our F1 scores range from 0.95 to 0.98, which is pretty good! We want to be as close to 1 as possible without overfitting.</li> <br>
 				<li><b>Support: </b> A similar number of items appeared in each category, which is what we want.</li> <br>
-			</p>
+			</ul>
 		</div>
 	</div>
 	<div class='green_box'>
@@ -396,7 +396,7 @@
 			In this test, we will analyze whether <b>providers predicted to have higher ratings</b> have significantly less fines than 
 			<b>providers predicted to have lower ratings</b>.
 		</p>
-		<p class='tests'>
+		<ul class='tests'>
 			<b>Question of Interest:</b> Is the mean total amount of fines significantly greater in healthcare providers with lower predicted rankings? <br><br>
 			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub>, where &mu;<sub>1</sub> is the mean total amount of fines for healthcare providers
 			with predicted low rankings (1-2) and &mu;<sub>2</sub> is the mean total amount of fines for healthcare providers predicted to have high
@@ -411,14 +411,14 @@
 			After conducting a two-sample t-test, we retrieve a t-stat of about 13.846 and a p-value of about 1.355 * 10^(-42).
 			Since our p-value is 1.35 * 10^(-42) &lt; 0.05, we <b>reject the null hypothesis</b>. The total amount of fines is significantly greater 
 			in healthcare providers with low predicted rankings.
-		</p>
+		</ul>
 		Now, we will look at <u>payment denials.</u>
 		<li>The mean number of payment denials for low ranking providers (ranks 1-2) is <b>about 0.399.</b></li>
 		<li>The mean number of payment denials for high ranking providers (ranks 3-5) is <b>about 0.984.</b></li>
 		At a glance, the mean payment denials for the predicted lower & higher rankings are very similar. We will need to conduct another 2-sample 
 		t-test to investigate whether this difference is significant.
 
-		<p class='tests'>
+		<ul class='tests'>
 			<b>Question of Interest:</b> Is the mean number of payment denials significantly greater in healthcare providers with lower predicted rankings? <br><br>
 			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub>, where &mu;<sub>1</sub> is the mean number of payment denials for healthcare providers
 			with predicted low rankings (1-2) and &mu;<sub>2</sub> is the mean number of payment denials for healthcare providers predicted to have high
@@ -433,21 +433,21 @@
 			After conducting a two-sample t-test, we retrieve a t-stat of about 14.928 and a p-value of about 6.043 * 10^(-49).
 			Since our p-value is 6.043 * 10^(-49) &lt; 0.05, we <b>reject the null hypothesis</b>. The number of payment denials is significantly greater 
 			in healthcare providers with low predicted rankings.
-		</p>
+		</ul>
 	</div>
 	<!--STRATEGY DEVELOPMENT -->
 	<h1>Strategy Development</h1>
 	<div class='lavender_box'>
 		<h2>Healthcare Terminology</h2>
 		<div style='display:flex; justify-content:flex-start;'>
-			<p>
+			<ul>
 				<li><b>Providers: </b>a person or organization that provides healthcare services, such as hospitals, doctors, clinics, and nursing homes</li>
 				<li><b>Beneficiaries: </b>the people benefitting from the Medicare plan they are enrolled in; the customer</li>
 				<li style='color:blue;'><b>Medicare: </b>federal health insurance for seniors aged 65+; also applies to some disabled people under age 65</li>
 				<li><b>Medicaid: </b>a joint federal + state health insurance program that helps cover costs for people with low income and 
 					resouces. Unlike Medicare, Medicaid also offers services such as nursing home care and personal care services.</li>
 				<li><b>MediCal: </b>the Medicaid program for California</li>
-			</p>
+			</ul>
 			<div class='caption'>
 				<b>Parts of Medicare:</b>
 				<ol type='I'>
