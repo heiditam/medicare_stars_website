@@ -173,7 +173,7 @@
 		<h2>Exploratory Data Analysis (EDA)</h2>
 		<div style='display:flex; justify-content:flex-start;'>
 			<iframe src='/fines_boxplot.html' width="75%" height="500px" title = 'Boxplot of Total Amount of Fines in Dollars'></iframe>
-			<p class='caption' style='max-width: 25%;'>
+			<ul class='caption' style='max-width: 25%;'>
 				<br> <br>
 				<li><b>Minimum: </b>$0</li>
 				<li><b>1st Quartile: </b>$0</li>
@@ -189,10 +189,10 @@
 				<li>The majority of the fines are relatively small, but a few outliers dominate the dataset. This could be due to a few providers
 					breaking the standards set for health providers.
 				</li>
-			</p>
+			</ul>
 		</div>
 		<div style='display:flex; justify-content:flex-start;'>
-			<p class='caption' style='max-width: 25%;'>
+			<ul class='caption' style='max-width: 25%;'>
 				<br> <br>
 				<li><b>Minimum: </b>0 citations</li>
 				<li><b>1st Quartile: </b>0 citations</li>
@@ -209,7 +209,7 @@
 				<li>The median is <b>significantly</b> lower than the mean, which means that a few providers were cited unusally more than most.</li>
 				<li>Most of the providers are doing very well and have virtually no citations. This means most providers obey health standards.
 				</li>
-			</p>
+			</ul>
 			<iframe src='infections_citations.html' width='75%' height='500px' title='Boxplot of Number of Citations From Infection Control Measures'></iframe>
 		</div>
 		<div style='display:flex; justify-content:space-between;'>
