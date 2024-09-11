@@ -385,10 +385,11 @@
 		<p style='color:navy;'>This means about <b><u>97.72%</u></b> of predicted low-ranking instances had provider IDs that matched actual low-ranking providers.
 			This is a good indication our model is performing well.</p>
 		<h3>Cost Analysis</h3>
+		First, let's investigate the <u>total amount of fines</u> for healthcare providers.
 		<li>The mean total amount of fines in dollars for low ranking providers (ranks 1-2) is <b>$69,789.79.</b></li>
 		<li>The mean total amount of fines in dollars for high ranking providers (ranks 3-5) is <b>$13,328.98.</b></li>
 		<p>
-			The mean number of fines PREDICTED for low ratings (1, 2) is over <b>5 times greater</b> than the mean number of fines PREDICTED for high ratings (3-5). <br>
+			The mean total amount of fines PREDICTED for low ratings (1, 2) is over <b>5 times greater</b> than the mean total amount of fines PREDICTED for high ratings (3-5). <br>
 			The model suggests that <b>fines are an important indicator</b> in predicting overall star ratings in the dataset.<br>
 			We can quickly confirm that high ranking providers have significantly less fines than low ranking providers with a significance test.
 			Recall earlier we performed a permutation test to see if there was a significant difference between <i>all observed </i> rating categories.
@@ -396,9 +397,9 @@
 			<b>providers predicted to have lower ratings</b>.
 		</p>
 		<p class='tests'>
-			<b>Question of Interest:</b> Is the mean number of fines significantly greater in healthcare providers with lower predicted rankings? <br><br>
-			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub>, where &mu;<sub>1</sub> is the mean number of fines for healthcare providers
-			with predicted low rankings (1-2) and &mu;<sub>2</sub> is the mean number of fines for healthcare providers predicted to have high
+			<b>Question of Interest:</b> Is the mean total amount of fines significantly greater in healthcare providers with lower predicted rankings? <br><br>
+			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub>, where &mu;<sub>1</sub> is the mean total amount of fines for healthcare providers
+			with predicted low rankings (1-2) and &mu;<sub>2</sub> is the mean total amount of fines for healthcare providers predicted to have high
 			rankings (3-5).<br>
 			<b>H<sub>1</sub>:</b> &mu;<sub>1</sub> ≥ &mu;<sub>2</sub> &rarr; lower-ranking providers are expected to have more fines.<br>
 			We are comparing the means of two groups, so we will perform a two-sample t-test. <br><br>
@@ -408,10 +409,109 @@
 			<li>The data are independent in each sample (assume randomization, and not enough info to confirm sample is &lt;10% of population)</li><br>
 			
 			After conducting a two-sample t-test, we retrieve a t-stat of about 13.846 and a p-value of about 1.355 * 10^(-42).
-			Since our p-value is 1.35 * 10^(-42) &lt; 0.05, we <b>reject the null hypothesis</b>. The number of fines is significantly greater 
+			Since our p-value is 1.35 * 10^(-42) &lt; 0.05, we <b>reject the null hypothesis</b>. The total amount of fines is significantly greater 
+			in healthcare providers with low predicted rankings.
+		</p>
+		Now, we will look at <u>payment denials.</u>
+		<li>The mean number of payment denials for low ranking providers (ranks 1-2) is <b>about 0.399.</b></li>
+		<li>The mean number of payment denials for high ranking providers (ranks 3-5) is <b>about 0.984.</b></li>
+		At a glance, the mean payment denials for the predicted lower & higher rankings are very similar. We will need to conduct another 2-sample 
+		t-test to investigate whether this difference is significant.
+
+		<p class='tests'>
+			<b>Question of Interest:</b> Is the mean number of payment denials significantly greater in healthcare providers with lower predicted rankings? <br><br>
+			<b>H<sub>0</sub>:</b> &mu;<sub>1</sub> = &mu;<sub>2</sub>, where &mu;<sub>1</sub> is the mean number of payment denials for healthcare providers
+			with predicted low rankings (1-2) and &mu;<sub>2</sub> is the mean number of payment denials for healthcare providers predicted to have high
+			rankings (3-5).<br>
+			<b>H<sub>1</sub>:</b> &mu;<sub>1</sub> ≥ &mu;<sub>2</sub> &rarr; lower-ranking providers are expected to have more payment denials.<br>
+			We are comparing the means of two groups, so we will perform a two-sample t-test. <br><br>
+			<b>Assumptions:</b>
+			<li>The populations are independent of each other because low-ranking and high-ranking providers are mutually exclusive.</li>
+			<li>The Central Limit Theorem balance condition is met in each sample (at least 30 providers for low and high rankings each).</li>
+			<li>The data are independent in each sample (assume randomization, and not enough info to confirm sample is &lt;10% of population)</li><br>
+			
+			After conducting a two-sample t-test, we retrieve a t-stat of about 14.928 and a p-value of about 6.043 * 10^(-49).
+			Since our p-value is 6.043 * 10^(-49) &lt; 0.05, we <b>reject the null hypothesis</b>. The number of payment denials is significantly greater 
 			in healthcare providers with low predicted rankings.
 		</p>
 	</div>
+	<!--STRATEGY DEVELOPMENT -->
+	<h1>Strategy Development</h1>
+	<div class='lavender_box'>
+		<h2>Healthcare Terminology</h2>
+		<div style='display:flex; justify-content:flex-start;'>
+			<p>
+				<li><b>Providers: </b>a person or organization that provides healthcare services, such as hospitals, doctors, clinics, and nursing homes</li>
+				<li><b>Beneficiaries: </b>the people benefitting from the Medicare plan they are enrolled in; the customer</li>
+				<li style='color:blue;'><b>Medicare: </b>federal health insurance for seniors aged 65+; also applies to some disabled people under age 65</li>
+				<li><b>Medicaid: </b>a joint federal + state health insurance program that helps cover costs for people with low income and 
+					resouces. Unlike Medicare, Medicaid also offers services such as nursing home care and personal care services.</li>
+				<li><b>MediCal: </b>the Medicaid program for California</li>
+			</p>
+			<div class='caption'>
+				<b>Parts of Medicare:</b>
+				<ol type='I'>
+					<li><b>PART A: Hospital Insurance</b>-- covers patient care in hospitals, nursing facilities, and home health care.</li>
+					<li><b>PART B: Medical Insurance</b>-- covers preventative services (eg vaccines, tests, screenings), doctor services, 
+						and medical equipment.</li>
+					<li><b>PART C: Medicare Advantage</b>-- offered by private insurance companies, but covers and provides the same services
+						as Original Medicare.</li>
+					<li><b>PART D: Drug Coverage</b>-- covers the cost of prescribed drugs, including many shots + vaccines</li>
+				</ol>
+			</div>
+		</div>
+		<h2>Problem Analysis</h2>
+		<b>Providers</b> are evaluated on the level of care they provide. They are not impacted directly, but may experience some indirect
+			 consequences if they provide poor care. <br><br>
+		
+		There are two crucial types of penalties for nursing homes: <b>fines</b> and <b>payment denials.</b><br>
+		<li><b>Fines: </b>Medical Advantage plans need to pay when they are discovered to be non-compliant with regulations
+			from the Centers for Medicare & Medicaid Services (CMS). This is typically associated with the quality of care
+			that beneficiaries receive.</li>
+		<li><b>Payment Denials: </b> The Medicare plan denies payment to the healthcare provider for a service or medication 
+			the beneficiary received if its quality was not satisfactory.</li>
+
+		<h2>Steps Health Insurance Companies Can Take</h2>
+		<i>#2-5 expand on how to improve quality care.</i><br>
+		<ol type='1'>
+			<li><b>Better Quality Care: </b>Fines and payment denials are significant factors that affect the quality of care healthcare services 
+				and professionals provide. By focusing on enhanced care, insurance companies will face less fines and payment denials, thus 
+				improving the customer's overall experience. In particular, it is vital to consistently achieve high health inspection ratings
+				 in order to provide the beneficiaries with optimal service and excellent care. </li>
+			<li><b>Enhanced Staff Tranings: </b>Insurance companies could boost the quality of care they provide by enhancing 
+				their staff trainings. Staff could be better trained on how to handle situations such as medical emergencies,
+				 controlling infections, and meeting safety guidelines and standards. There are two types of important trainings
+				  insurance companies could implement: <b>Patient Care Practices</b> and <b>Facility Maintenance</b>. </li><br>
+			<ul>
+				<li>
+					<b>Patient Care Practices:</b> These would be focused on how to provide premium care to patients, including 
+					proper medical procedures, handling medication and relevant medical documents safely, and ensuring the patient
+					 has a comfortable experience. It is essential to also practice meeting health standards by maintaining a clean
+					  environment, washing hands frequently, and using PPE (personal protective equipment).
+				</li>
+				<li>
+					<b>Facility Maintenance: </b> It is also key to maintain a hygienic environment by regularly cleaning and 
+					checking facilities, including bathrooms, patient rooms, treatment rooms, etc. It is also important to check 
+					all equipment is functional and to keep track of which equipments may be wearing down quickly. Mock inspections
+					 could help identify room for improving health inspection ratings.
+				</li><br>
+				For both of these practices, health insurance companies should have mandatory video modules for staff training as well as in-person training.
+			</ul>
+			<li><b>Customer Service: </b>Health insurance companies could improve the quality of communication they have with their customers. 
+				This may mean communicating their message more effectively or decreasing their response time.</li>
+			<li><b>Management of Chronic Conditions: </b>Health insurance companies could have programs that focus on supporting groups with
+				 chronic conditions, such as victims of heart and lung diseases. </li>
+			<li><b>Preventative Care: </b>A healthy customer is a happy customer, so insurance companies could monitor more frequent requirements
+				 for screening and tests. Catching diseases and infections early on is improtant before the condition deteriorates. Customers 
+				 may also watch simple modules online that explain how to prevent and treat non-fatal infections and illnesses. These modules
+				  could be shown to them via a personal portal, where the videos shown vary depending on age and relevant risk factors. </li>
+			
+		</ol>
+		<br>
+		<b>Note: </b> While a correlation exists between the following actions and higher ratings, this does not imply causation. However, implementing these steps may increase a health insurance company's likelihood of being perceived favorably.
+
+	</div>
+	
 </main>
 
 <style>
@@ -463,6 +563,19 @@
 		width: 100%;
 		box-sizing: border-box;
 		background-color: #E8FFF5;
+		border: 4px solid navy;
+		border-bottom: 2px solid navy;
+		border-top: 2px solid navy;
+		font-family: 'Lato', sans-serif;
+		font-size: 1em;
+		padding: 20px 50px 10px 50px;
+		text-align: left;
+	}
+
+	.lavender_box{
+		width: 100%;
+		box-sizing: border-box;
+		background-color: lavender;
 		border: 4px solid navy;
 		border-bottom: 2px solid navy;
 		border-top: 2px solid navy;
