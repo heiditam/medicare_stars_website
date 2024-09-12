@@ -6,7 +6,7 @@
 	let fines_boxplot = '';
 	let infections_citations_boxplot = '';
 	let qm_state_graph = '';
-	let qm_map_all = '';
+	let health_inspection_all = '';
 	let staffing_map = '';
 	let health_insection_map = '';
 	let corr_table = '';
@@ -48,9 +48,9 @@
 	};
 
 	const fetchMap1 = async () => {
-		const response = await fetch('/qm_map_all.html');
+		const response = await fetch('/health_inspection_all.html');
 		if (response.ok) {
-		  qm_map_all = await response.text(); 
+		  health_inspection_all = await response.text(); 
 		} else {
 		  console.error("Failed to fetch provider_info.html");
 		}
@@ -246,7 +246,7 @@
 
 			</ul>
 		</div>
-		<iframe src='qm_map_all.html' width='100%' height='500px' title='Map of Average QM Rating by Provider Site'></iframe>
+		<iframe src='health_inspection_all.html' width='100%' height='500px' title='Map of Average QM Rating by Provider Site'></iframe>
 	</div>
 	<div class='blue_box'>
 		<h2>Correlation Analysis</h2>

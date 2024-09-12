@@ -42,4 +42,4 @@
 
 <div class="progress-container">
     <div class="progress-bar" bind:this={progressBar}></div>
-  </div>
+</div>
