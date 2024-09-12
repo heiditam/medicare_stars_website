@@ -243,6 +243,7 @@
 
 				<br><br> <b>Health Inspection Ratings</b> (National Average: 2.785/5)
 				<li>Most of the U.S. states are fairly close to average, but there is still room for improvement.</li>
+				<li>Use the map below to view how health inspection ratings varies across the United States by provider site.</li>
 
 			</ul>
 		</div>
